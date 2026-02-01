@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url(https://i.pinimg.com/1200x/0b/c6/34/0bc634bdb93118583578a40fee376187.jpg);
+            background-repeat:no-repeat;
+            background-size: cover;
+        }
+        button {
+            background-color: #dbe3dca6; /* Green */
+            border: none;
+            color: rgb(10, 10, 10);
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 10px;
+            margin: 2px 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            opacity: 0.9;
+        }
+        nav{
+            display: flex;
+            align-items: center;
+            padding:12px 20px;
+            background:#4CAF50;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0.1);
+            position:fixed;
+            width:100%;
+            top:0;
+        }
+        nav-links {
+            background-color: #4CAF50; /* Darker green */
+            color: white;
+            text-decoration:solid;
+            padding: 6px 12px  ;
+            border-radius: 12px;  
+            display:flex;
+            gap: 10px;
+            float: left;
+            align-items: center;
+
+        }
+        nav-links button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 50px;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .hamburger {
+  display: none;
+  font-size: 26px;
+  color: rgb(9, 9, 9);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    flex-direction: column;
+    background-color: #2e7d32;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+  }
+
+  .menu.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+        
+        
+
+        
+    </style>
+    <script>
+        function toggleMenu(){
+            documents.getElementById("nav-links").classList.toggle("show");
+        }
+    </script>
+
+</head>
+<body>
+    <div class="relative z-50 xl:mt-4">
+        <nav  id="nav"style="background-color: #f1f4f0dc;margin-top: 10px;height:80px" class="fixed top-0 left-0 w-full h-16 flex items-center justify-between px-4 shadow-md">
+           <div class="nav-links"  style ="align-items: right;">
+                 <button onclick="location.href='home.html'">Home</button>
+                    <button onclick="location.href='marketing.html'">marketing</button>
+                    <button onclick="location.href='schemes.html'">Schemes</button>
+                    <button onclick="location.href='blogs.html'">Blogs</button>
+                    <button onclick="location.href='login.html'">Login</button>   
+            </div>
+            <span class="hamburger" onclick="toggleMenu()" style=" margin-right: px;">☰</span>
+
+           
+           <div class="flex items-center"style="margin-right:">
+                <img src="https://i.pinimg.com/1200x/7c/b2/32/7cb23218fe8cd18c2f5d5868cad7c485.jpg" alt="Logo" height=60px width=60px  style="border-radius: 50%;">
+                <span class="text-white font-bold text-xl"
+                style="font-family:Verdana, Geneva, Tahoma, sans-serif; color: #080808cf; font-size: 30px; font-weight: bold;"
+                >Agri-Nova</span><br><br> 
+            </div>
+                <div class="ml-4 text-sm font-medium text-gray-700"
+                style="margin-left: 20px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Tahoma, Geneva, Verdana, sans-serif; color: #0c0c0cfd; font-size: 18px; font-weight: bold;"
+                ><br>
+                
+            </div>
+            <div>
+                
+
+            </div>
+            
+        </nav>     
+    </div>
+</body>
+ 
+</html>
