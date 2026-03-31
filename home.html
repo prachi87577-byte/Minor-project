@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Mausam — Real-Time Weather for Farmers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylehome.css">
+    <script src="script.js" defer=""></script>
+</head>
+<body>
+    <nav>
+ <img src="https://i.pinimg.com/1200x/7c/b2/32/7cb23218fe8cd18c2f5d5868cad7c485.jpg" alt="Logo" style="width: 50px; height: 50px;border-radius: 50%;">  
+  <div class="logo">live <span>Mausam</span></div>
+  <ul>
+    <li><a href="blogs.html">Blogs</a></li>
+    <li><a href="schemes.html">Schemes</a></li>
+    <li><a href="marketing.html">Mar̥keting</a></li>
+    
+  </ul>
+  <button class="nav-btn">Get Alerts</button>
+</nav>
+<section class="hero" id="weather">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Live Weather Intelligence</div>
+    <h1>Know Your <em>Mausam</em><br>Before the Season</h1>
+    <p class="hero-sub">
+      Real-time weather data, 5-day forecasts, and agricultural insights — 
+      empowering India's 140 million farmers to make smarter, climate-ready decisions.
+    </p>
+    <div class="hero-ctas">
+      <button class="btn-primary" onclick="document.getElementById('city-input').focus()">Check My Weather</button>
+      <button class="btn-outline" onclick="document.getElementById('blogs').scrollIntoView({behavior:'smooth'})">Farmer Blogs</button>
+    </div>
+  </div>
+
+  
+  <div class="weather-card">
+    <div class="api-note">
+      <strong>Setup:</strong> Enter your OpenWeatherMap API key below to enable live weather. 
+      Get a free key at <strong>openweathermap.org</strong>
+    </div>
+
+    <div class="weather-search">
+      <input type="text" id="api-key-input" placeholder="Enter API Key (optional)" style="flex:1.2">
+    </div>
+    <div class="weather-search">
+      <input type="text" id="city-input" placeholder="Search city (e.g. Patiala, Punjab)..." onkeydown="if(event.key==='Enter')fetchWeather()">
+      <button onclick="fetchWeather()">Search</button>
+    </div>
+
+    <div id="weather-display">
+      <div class="weather-loading">
+        <div class="spinner"></div>
+        <p>Enter a city name to get live weather</p>
+      </div>
+    </div>
+
+    <div id="forecast-display"></div>
+  </div>
+</section>
+<div class="ticker-bar">
+  <div class="ticker-inner" id="ticker">
+    <div class="ticker-item">Yellow Alert: Strong winds expected in Punjab — secure loose crops</div>
+    <div class="ticker-item">Monsoon onset predicted 4 days early across Haryana this season</div>
+    <div class="ticker-item">Frost advisory: Protect Rabi crops in UP overnight temperatures drop to 3°C</div>
+    <div class="ticker-item">Hailstorm warning: Maharashtra and Gujarat next 48 hours</div>
+    <div class="ticker-item">Good news: Normal monsoon rainfall predicted for Kharif season 2025</div>
+    
+    <div class="ticker-item">Yellow Alert: Strong winds expected in Punjab — secure loose crops</div>
+    <div class="ticker-item">Monsoon onset predicted 4 days early across Haryana this season</div>
+    <div class="ticker-item">Frost advisory: Protect Rabi crops in UP overnight temperatures drop to 3°C</div>
+    <div class="ticker-item">Hailstorm warning: Maharashtra and Gujarat next 48 hours</div>
+    <div class="ticker-item">Good news: Normal monsoon rainfall predicted for Kharif season 2025</div>
+  </div>
+</div>
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num">4,200+</div><div class="stat-lbl">Weather Stations</div></div>
+  <div class="stat-item"><div class="stat-num">28</div><div class="stat-lbl">States Covered</div></div>
+  <div class="stat-item"><div class="stat-num">98.2%</div><div class="stat-lbl">Forecast Accuracy</div></div>
+  <div class="stat-item"><div class="stat-num">2.4M+</div><div class="stat-lbl">Farmers Served</div></div>
+  <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-lbl">Live Monitoring</div></div>
+</div>
+<section class="blogs-section" id="blogs">
+  <div class="blogs-header">
+    <div>
+      <div class="section-tag">Farmer Knowledge Hub</div>
+      <h2 class="section-title">Blogs for<br>the Fields</h2>
+      <p class="section-sub">Expert advice, seasonal tips, and success stories from India's farming community.</p>
+    </div>
+    <a href="blogs.html" class="btn-outline">View All Posts →</a>
+  </div>
+
+  <div class="blogs-grid">
+   
+    <div class="blog-card">
+      <div class="blog-thumb">
+        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#1a3a1a,#2d5a1b)"></div>
+        🌾
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag tag-green">Kharif Season</span>
+        <h3 class="blog-title">How to Prepare Your Paddy Fields for Monsoon 2025</h3>
+        <p class="blog-excerpt">With pre-monsoon showers arriving earlier this year, here is a step-by-step guide to soil preparation, seed selection, and drainage planning for maximum paddy yield.</p>
+        <div class="blog-meta">
+          <div>
+            <div class="blog-author">Dr. Ramesh Sharma</div>
+            <div class="blog-date">15 Feb 2025</div>
+          </div>
+          <div class="blog-read">8 min read</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="blog-card">
+      <div class="blog-thumb">
+        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#3a1a05,#6b3510)"></div>
+        🌡️
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag tag-amber">Climate Adaptation</span>
+        <h3 class="blog-title">Managing Wheat Crops During Unseasonal Heat Waves</h3>
+        <p class="blog-excerpt">Rising temperatures during grain-filling stage can slash wheat yield by up to 30%. Learn irrigation scheduling, anti-transpirant sprays, and variety switching strategies.</p>
+        <div class="blog-meta">
+          <div>
+            <div class="blog-author">Sunita Devi, ICAR</div>
+            <div class="blog-date">8 Feb 2025</div>
+          </div>
+          <div class="blog-read">12 min read</div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="blog-card">
+      <div class="blog-thumb">
+        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#0d2744,#1a3a5c)"></div>
+        💧
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag tag-blue">Water Management</span>
+        <h3 class="blog-title">Drip Irrigation vs Flood Irrigation: A Cost-Benefit Analysis</h3>
+        <p class="blog-excerpt">Small and marginal farmers share their real-world experience switching to micro-irrigation systems. Actual savings, subsidies received, and yield improvements documented.</p>
+        <div class="blog-meta">
+          <div>
+            <div class="blog-author">Vikram Patel</div>
+            <div class="blog-date">1 Feb 2025</div>
+          </div>
+          <div class="blog-read">6 min read</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="blog-card">
+      <div class="blog-thumb">
+        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#1a1a0d,#3a3a10)"></div>
+        🌱
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag tag-green">Organic Farming</span>
+        <h3 class="blog-title">Zero-Budget Natural Farming: Success Stories from Andhra</h3>
+        <p class="blog-excerpt">Farmers who switched to ZBNF report 40% reduction in input costs and premium prices in local markets. Here is how the Andhra model can work in your district.</p>
+        <div class="blog-meta">
+          <div>
+            <div class="blog-author">Andhra Agri Dept.</div>
+            <div class="blog-date">25 Jan 2025</div>
+          </div>
+          <div class="blog-read">10 min read</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="blog-card">
+      <div class="blog-thumb">
+        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#1a0d1a,#3a1050)"></div>
+        🛰️
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag tag-blue">AgriTech</span>
+        <h3 class="blog-title">How Satellite Soil Moisture Data is Changing Irrigation Decisions</h3>
+        <p class="blog-excerpt">ISRO's RISAT-2BR1 satellite now provides 1km resolution soil moisture maps free to farmers. We explain how to read and use this data for precise irrigation scheduling.</p>
+        <div class="blog-meta">
+          <div>
+            <div class="blog-author">ISRO AgriWatch Team</div>
+            <div class="blog-date">18 Jan 2025</div>
+          </div>
+          <div class="blog-read">15 min read</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="blog-card">
+      <div class="blog-thumb">
+        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#0d1a0d,#1a3520)"></div>
+        🌿
+      </div>
+      <div class="blog-body">
+        <span class="blog-tag tag-amber">Pest Management</span>
+        <h3 class="blog-title">Integrated Pest Management Guide for Rabi Season 2025</h3>
+        <p class="blog-excerpt">Weather patterns this winter are creating favorable conditions for aphid and whitefly outbreaks. Here is a week-by-week scouting and spray calendar for your region.</p>
+        <div class="blog-meta">
+          <div>
+            <div class="blog-author">PAU Extension Cell</div>
+            <div class="blog-date">12 Jan 2025</div>
+          </div>
+          <div class="blog-read">9 min read</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="schemes-section" id="schemes">
+  <div class="schemes-header">
+    <div>
+      <div class="section-tag">Government Support</div>
+      <h2 class="section-title">Schemes &amp;<br>Benefits for Farmers</h2>
+      <p class="section-sub">Central and state government schemes, subsidies, and loans available to support your agricultural journey.</p>
+    </div>
+    <a href="schemes.html" class="btn-outline">All Schemes →</a>
+  </div>
+
+  <div class="schemes-filter">
+    <button class="filter-btn active" onclick="filterSchemes('all', this)">All Schemes</button>
+    <button class="filter-btn" onclick="filterSchemes('central', this)">Central Govt.</button>
+    <button class="filter-btn" onclick="filterSchemes('state', this)">State Govt.</button>
+    <button class="filter-btn" onclick="filterSchemes('bank', this)">Banking &amp; Credit</button>
+  </div>
+
+  <div class="schemes-grid" id="schemes-grid">
+
+    <div class="scheme-card central" data-cat="central">
+      <span class="scheme-badge badge-central">Central Govt.</span>
+      <div class="scheme-icon icon-gold">🌾</div>
+      <h3 class="scheme-title">PM-KISAN Samman Nidhi</h3>
+      <p class="scheme-desc">Direct income support of ₹6,000 per year to all landholding farmer families in three equal installments.</p>
+      <div class="scheme-benefits">
+        <div class="scheme-benefit">₹2,000 per installment, 3 times a year</div>
+        <div class="scheme-benefit">Direct bank transfer (DBT)</div>
+        <div class="scheme-benefit">All small &amp; marginal farmers eligible</div>
+      </div>
+      <div class="scheme-footer">
+        <span class="scheme-deadline">Next installment: Apr 2025</span>
+        <a class="scheme-link" href="#">Apply Now →</a>
+      </div>
+    </div>
+
+    <div class="scheme-card central" data-cat="central">
+      <span class="scheme-badge badge-central">Central Govt.</span>
+      <div class="scheme-icon icon-gold">🛡️</div>
+      <h3 class="scheme-title">Pradhan Mantri Fasal Bima Yojana</h3>
+      <p class="scheme-desc">Comprehensive crop insurance covering losses from natural calamities, pests, and diseases at highly subsidized premiums.</p>
+      <div class="scheme-benefits">
+        <div class="scheme-benefit">Premium: 2% for Kharif, 1.5% for Rabi</div>
+        <div class="scheme-benefit">Covers sowing failure, mid-season adversity</div>
+        <div class="scheme-benefit">Post-harvest losses covered up to 14 days</div>
+      </div>
+      <div class="scheme-footer">
+        <span class="scheme-deadline">Deadline: 31 Jul 2025</span>
+        <a class="scheme-link" href="#">Apply Now →</a>
+      </div>
+    </div>
+
+    <div class="scheme-card state" data-cat="state">
+      <span class="scheme-badge badge-state">State Govt.</span>
+      <div class="scheme-icon icon-green">💧</div>
+      <h3 class="scheme-title">PM Krishi Sinchayee Yojana</h3>
+      <p class="scheme-desc">Har Khet Ko Pani — expanding irrigation coverage and improving water use efficiency across all districts.</p>
+      <div class="scheme-benefits">
+        <div class="scheme-benefit">55% subsidy on drip/sprinkler systems</div>
+        <div class="scheme-benefit">SC/ST farmers: up to 75% subsidy</div>
+        <div class="scheme-benefit">On-farm water management support</div>
+      </div>
+      <div class="scheme-footer">
+        <span class="scheme-deadline">Rolling applications</span>
+        <a class="scheme-link" href="#">Apply Now →</a>
+      </div>
+    </div>
+
+    <div class="scheme-card bank" data-cat="bank">
+      <span class="scheme-badge badge-bank">Banking</span>
+      <div class="scheme-icon icon-blue">💳</div>
+      <h3 class="scheme-title">Kisan Credit Card (KCC)</h3>
+      <p class="scheme-desc">Revolving credit facility providing timely and adequate credit for agricultural needs, allied activities, and non-farm income.</p>
+      <div class="scheme-benefits">
+        <div class="scheme-benefit">Interest rate: 7% p.a. (4% with prompt repayment)</div>
+        <div class="scheme-benefit">Credit limit based on land holding &amp; crop</div>
+        <div class="scheme-benefit">Personal accident insurance of ₹50,000</div>
+      </div>
+      <div class="scheme-footer">
+        <span class="scheme-deadline">Available year-round</span>
+        <a class="scheme-link" href="#">Apply Now →</a>
+      </div>
+    </div>
+
+    <div class="scheme-card state" data-cat="state">
+      <span class="scheme-badge badge-state">State Govt.</span>
+      <div class="scheme-icon icon-green">🌱</div>
+      <h3 class="scheme-title">National Mission on Oilseeds &amp; Oil Palm</h3>
+      <p class="scheme-desc">Boost domestic oilseed production to reduce import dependence — with seed, fertilizer, and equipment subsidies.</p>
+      <div class="scheme-benefits">
+        <div class="scheme-benefit">Free HYV seed kits to registered farmers</div>
+        <div class="scheme-benefit">₹25,000/ha grant for oil palm cultivation</div>
+        <div class="scheme-benefit">Processing unit support for FPOs</div>
+      </div>
+      <div class="scheme-footer">
+        <span class="scheme-deadline">Open: Mar–Sep 2025</span>
+        <a class="scheme-link" href="#">Apply Now →</a>
+      </div>
+    </div>
+
+    <div class="scheme-card central" data-cat="central">
+      <span class="scheme-badge badge-central">Central Govt.</span>
+      <div class="scheme-icon icon-gold">📦</div>
+      <h3 class="scheme-title">e-NAM (National Agriculture Market)</h3>
+      <p class="scheme-desc">Pan-India electronic trading portal connecting APMC mandis for transparent price discovery and better market access.</p>
+      <div class="scheme-benefits">
+        <div class="scheme-benefit">Access 1,361+ mandis across India</div>
+        <div class="scheme-benefit">Real-time price comparison before selling</div>
+        <div class="scheme-benefit">Logistics &amp; payment support through portal</div>
+      </div>
+      <div class="scheme-footer">
+        <span class="scheme-deadline">Always available</span>
+        <a class="scheme-link" href="#">Learn More →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<footer id="about">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Live <span>Mausem</span></span>
+      <p>India's most trusted real-time weather intelligence platform built exclusively for the farming community. Powered by IMD data and cutting-edge AI.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Weather</h4>
+      <ul>
+        <li><a href="#">Current Conditions</a></li>
+        <li><a href="#">5-Day Forecast</a></li>
+        <li><a href="#">Seasonal Outlook</a></li>
+        <li><a href="#">Crop Calendars</a></li>
+        <li><a href="#">Weather Alerts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Farmers</h4>
+      <ul>
+        <li><a href="#">Blogs</a></li>
+        <li><a href="#">Govt. Schemes</a></li>
+        <li><a href="#">Market Prices</a></li>
+        <li><a href="#">Soil Health</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Our Mission</a></li>
+        <li><a href="#">Data Sources</a></li>
+        <li><a href="#">API Access</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Live Mausem. Weather data sourced from IMD &amp; OpenWeatherMap.</p>
+    <p style="color:rgba(253,246,227,0.25);font-size:0.72rem;">Built with ❤️ for India's farmers</p>
+  </div>
+</footer>
+<script src="script.js">
+  </script>
+</body>
+</html>
