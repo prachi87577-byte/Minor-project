@@ -6,19 +6,19 @@
   <title>Live Mausam — Real-Time Weather for Farmers</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylehome.css">
-    <script src="script.js" defer=""></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <nav>
  <img src="https://i.pinimg.com/1200x/7c/b2/32/7cb23218fe8cd18c2f5d5868cad7c485.jpg" alt="Logo" style="width: 50px; height: 50px;border-radius: 50%;">  
   <div class="logo">live <span>Mausam</span></div>
   <ul>
+    <li><a href="home.html">Home</a></li>
     <li><a href="blogs.html">Blogs</a></li>
-    <li><a href="schemes.html">Schemes</a></li>
     <li><a href="marketing.html">Mar̥keting</a></li>
     
   </ul>
-  <button class="nav-btn">Get Alerts</button>
+  
 </nav>
 <section class="hero" id="weather">
   <div class="hero-text">
@@ -81,138 +81,138 @@
   <div class="stat-item"><div class="stat-num">2.4M+</div><div class="stat-lbl">Farmers Served</div></div>
   <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-lbl">Live Monitoring</div></div>
 </div>
-<section class="blogs-section" id="blogs">
-  <div class="blogs-header">
+<section class="disease-section" id="disease">
+  <div class="disease-header">
     <div>
-      <div class="section-tag">Farmer Knowledge Hub</div>
-      <h2 class="section-title">Blogs for<br>the Fields</h2>
-      <p class="section-sub">Expert advice, seasonal tips, and success stories from India's farming community.</p>
+      <div class="section-tag">AI-Powered Diagnostics</div>
+      <h2 class="section-title">Crop Disease<br><em style="font-style:italic;background:linear-gradient(135deg,var(--green-mid),var(--green-forest));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Detection</em></h2>
+      <p class="section-sub">Upload a photo of your crop leaf and our AI will instantly diagnose diseases, pests, and deficiencies — powered by the crop.health API.</p>
     </div>
-    <a href="blogs.html" class="btn-outline">View All Posts →</a>
+    <div class="disease-meta-pills">
+      <div class="meta-pill">🌾 300+ Crop Diseases</div>
+      <div class="meta-pill">⚡ Instant Results</div>
+      <div class="meta-pill">🛰️ No Local Server</div>
+    </div>
   </div>
 
-  <div class="blogs-grid">
-   
-    <div class="blog-card">
-      <div class="blog-thumb">
-        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#1a3a1a,#2d5a1b)"></div>
-        🌾
+  <div class="disease-layout">
+
+    <!-- Upload Card -->
+    <div class="disease-upload-card">
+
+      <!-- API status bar -->
+      <div class="api-status-bar" id="api-status-bar">
+        <span class="api-status-dot" id="api-status-dot"></span>
+        <span id="api-status-text">Initialising…</span>
       </div>
-      <div class="blog-body">
-        <span class="blog-tag tag-green">Kharif Season</span>
-        <h3 class="blog-title">How to Prepare Your Paddy Fields for Monsoon 2025</h3>
-        <p class="blog-excerpt">With pre-monsoon showers arriving earlier this year, here is a step-by-step guide to soil preparation, seed selection, and drainage planning for maximum paddy yield.</p>
-        <div class="blog-meta">
-          <div>
-            <div class="blog-author">Dr. Ramesh Sharma</div>
-            <div class="blog-date">15 Feb 2025</div>
-          </div>
-          <div class="blog-read">8 min read</div>
-        </div>
+
+      <!-- Drop zone -->
+      <div class="upload-zone" id="upload-zone"
+        onclick="document.getElementById('cropImage').click()"
+        ondrop="handleDrop(event)"
+        ondragover="event.preventDefault(); this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')">
+        <input type="file" id="cropImage" accept="image/*" style="display:none" onchange="handleImageSelect(event)">
+        <div class="upload-icon-wrap"><div class="upload-icon">🍃</div></div>
+        <div class="upload-title">Drop your crop photo here</div>
+        <div class="upload-sub">or click to browse — JPG, PNG supported</div>
+        <button class="btn-primary upload-btn" onclick="event.stopPropagation(); document.getElementById('cropImage').click()">Choose Photo</button>
       </div>
+
+      <!-- Preview -->
+      <div class="upload-preview" id="upload-preview" style="display:none">
+        <img id="preview-img" src="" alt="Crop preview">
+        <button class="preview-change" onclick="document.getElementById('cropImage').click()">📷 Change Photo</button>
+      </div>
+
+      <button class="btn-primary analyze-btn" id="analyze-btn" onclick="predictDisease()" style="display:none">
+        <span class="btn-icon">🔬</span> Analyse Crop
+      </button>
     </div>
 
-    
-    <div class="blog-card">
-      <div class="blog-thumb">
-        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#3a1a05,#6b3510)"></div>
-        🌡️
-      </div>
-      <div class="blog-body">
-        <span class="blog-tag tag-amber">Climate Adaptation</span>
-        <h3 class="blog-title">Managing Wheat Crops During Unseasonal Heat Waves</h3>
-        <p class="blog-excerpt">Rising temperatures during grain-filling stage can slash wheat yield by up to 30%. Learn irrigation scheduling, anti-transpirant sprays, and variety switching strategies.</p>
-        <div class="blog-meta">
-          <div>
-            <div class="blog-author">Sunita Devi, ICAR</div>
-            <div class="blog-date">8 Feb 2025</div>
-          </div>
-          <div class="blog-read">12 min read</div>
-        </div>
-      </div>
-    </div>
+    <!-- Result Panel -->
+    <div class="disease-result-panel" id="disease-result-panel">
 
-   
-    <div class="blog-card">
-      <div class="blog-thumb">
-        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#0d2744,#1a3a5c)"></div>
-        💧
-      </div>
-      <div class="blog-body">
-        <span class="blog-tag tag-blue">Water Management</span>
-        <h3 class="blog-title">Drip Irrigation vs Flood Irrigation: A Cost-Benefit Analysis</h3>
-        <p class="blog-excerpt">Small and marginal farmers share their real-world experience switching to micro-irrigation systems. Actual savings, subsidies received, and yield improvements documented.</p>
-        <div class="blog-meta">
-          <div>
-            <div class="blog-author">Vikram Patel</div>
-            <div class="blog-date">1 Feb 2025</div>
+      <!-- Idle -->
+      <div class="result-idle" id="result-idle">
+        <div class="idle-icon">🌱</div>
+        <div class="idle-title">Awaiting Analysis</div>
+        <p class="idle-sub">Upload a clear, well-lit photo of the affected leaf or plant part to begin diagnosis.</p>
+        <div class="supported-diseases">
+          <div class="sd-label">What it detects</div>
+          <div class="sd-chips">
+            <span class="sd-chip chip-healthy">✅ Healthy</span>
+            <span class="sd-chip chip-powdery">🍄 Fungal Disease</span>
+            <span class="sd-chip chip-rust">🦠 Bacterial</span>
+            <span class="sd-chip chip-spot">🐛 Pests</span>
+            <span class="sd-chip chip-leafspot">🌿 Deficiencies</span>
           </div>
-          <div class="blog-read">6 min read</div>
         </div>
       </div>
-    </div>
 
-    
-    <div class="blog-card">
-      <div class="blog-thumb">
-        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#1a1a0d,#3a3a10)"></div>
-        🌱
-      </div>
-      <div class="blog-body">
-        <span class="blog-tag tag-green">Organic Farming</span>
-        <h3 class="blog-title">Zero-Budget Natural Farming: Success Stories from Andhra</h3>
-        <p class="blog-excerpt">Farmers who switched to ZBNF report 40% reduction in input costs and premium prices in local markets. Here is how the Andhra model can work in your district.</p>
-        <div class="blog-meta">
-          <div>
-            <div class="blog-author">Andhra Agri Dept.</div>
-            <div class="blog-date">25 Jan 2025</div>
-          </div>
-          <div class="blog-read">10 min read</div>
+      <!-- Loading -->
+      <div class="result-loading" id="result-loading" style="display:none">
+        <div class="scan-animation">
+          <div class="scan-leaf">🍃</div>
+          <div class="scan-beam"></div>
         </div>
+        <div class="loading-title">Scanning leaf patterns…</div>
+        <p class="loading-sub">crop.health AI is analysing texture, colour, and lesion patterns</p>
       </div>
-    </div>
 
-    
-    <div class="blog-card">
-      <div class="blog-thumb">
-        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#1a0d1a,#3a1050)"></div>
-        🛰️
-      </div>
-      <div class="blog-body">
-        <span class="blog-tag tag-blue">AgriTech</span>
-        <h3 class="blog-title">How Satellite Soil Moisture Data is Changing Irrigation Decisions</h3>
-        <p class="blog-excerpt">ISRO's RISAT-2BR1 satellite now provides 1km resolution soil moisture maps free to farmers. We explain how to read and use this data for precise irrigation scheduling.</p>
-        <div class="blog-meta">
-          <div>
-            <div class="blog-author">ISRO AgriWatch Team</div>
-            <div class="blog-date">18 Jan 2025</div>
-          </div>
-          <div class="blog-read">15 min read</div>
+      <!-- Output -->
+      <div class="result-output" id="result-output" style="display:none">
+        <div class="result-is-healthy" id="result-is-healthy"></div>
+        <div class="result-name" id="result-name"></div>
+        <div class="result-prob-bar-wrap">
+          <div class="result-prob-label">Confidence</div>
+          <div class="result-prob-track"><div class="result-prob-fill" id="result-prob-fill"></div></div>
+          <div class="result-prob-pct" id="result-prob-pct"></div>
         </div>
+        <div class="result-advice-box" id="result-advice-box">
+          <div class="advice-label">💡 Treatment &amp; Prevention</div>
+          <p id="result-advice"></p>
+        </div>
+        <div class="result-other-wrap" id="result-other-wrap" style="display:none">
+          <div class="sd-label">Other Possibilities</div>
+          <div id="result-others"></div>
+        </div>
+        <button class="btn-outline reset-btn" onclick="resetDisease()">🔄 Analyse Another</button>
       </div>
-    </div>
 
-    
-    <div class="blog-card">
-      <div class="blog-thumb">
-        <div class="blog-thumb-bg" style="background:linear-gradient(135deg,#0d1a0d,#1a3520)"></div>
-        🌿
+      <!-- Error -->
+      <div class="result-error" id="result-error" style="display:none">
+        <div class="error-icon">⚠️</div>
+        <div class="error-title" id="error-title">Something went wrong</div>
+        <p id="error-msg"></p>
+        <div class="error-note" id="error-note"></div>
+        <button class="btn-outline reset-btn" onclick="resetDisease()">Try Again</button>
       </div>
-      <div class="blog-body">
-        <span class="blog-tag tag-amber">Pest Management</span>
-        <h3 class="blog-title">Integrated Pest Management Guide for Rabi Season 2025</h3>
-        <p class="blog-excerpt">Weather patterns this winter are creating favorable conditions for aphid and whitefly outbreaks. Here is a week-by-week scouting and spray calendar for your region.</p>
-        <div class="blog-meta">
-          <div>
-            <div class="blog-author">PAU Extension Cell</div>
-            <div class="blog-date">12 Jan 2025</div>
-          </div>
-          <div class="blog-read">9 min read</div>
-        </div>
-      </div>
+
+    </div>
+  </div>
+
+  <!-- Info strip -->
+  <div class="disease-info-strip">
+    <div class="dis-info-item">
+      <div class="dis-info-icon">🤖</div>
+      <div><div class="dis-info-title">crop.health API</div><div class="dis-info-sub">By Kindwise — specialized for food crops</div></div>
+    </div>
+    <div class="dis-info-item">
+      <div class="dis-info-icon">🌾</div>
+      <div><div class="dis-info-title">300+ Diseases</div><div class="dis-info-sub">Fungi, bacteria, pests & abiotic stress</div></div>
+    </div>
+    <div class="dis-info-item">
+      <div class="dis-info-icon">🛰️</div>
+      <div><div class="dis-info-title">No Local Server</div><div class="dis-info-sub">Runs directly from the browser</div></div>
+    </div>
+    <div class="dis-info-item">
+      <div class="dis-info-icon">🎁</div>
+      <div><div class="dis-info-title">100 Free Credits</div><div class="dis-info-sub">Sign up free at admin.kindwise.com</div></div>
     </div>
   </div>
 </section>
+
 <section class="schemes-section" id="schemes">
   <div class="schemes-header">
     <div>
@@ -372,7 +372,5 @@
     <p style="color:rgba(253,246,227,0.25);font-size:0.72rem;">Built with ❤️ for India's farmers</p>
   </div>
 </footer>
-<script src="script.js">
-  </script>
 </body>
 </html>
