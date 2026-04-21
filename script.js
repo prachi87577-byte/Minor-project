@@ -1,7 +1,4 @@
-
-
 const API_KEY = "bf17a9f15d84870e4a892abf79f59cd5";
-
 
 async function fetchWeather() {
   const cityInput = document.getElementById('city-input');
@@ -23,7 +20,6 @@ async function fetchWeather() {
     if (!response.ok) throw new Error('City not found');
     const data = await response.json();
 
-    
     weatherDisplay.innerHTML = `
       <div class="weather-result-card">
         <div class="weather-main-info">
@@ -42,35 +38,12 @@ async function fetchWeather() {
   }
 }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.createElement('button');
-  btn.className = 'theme-toggle-btn';
-  
-  const savedTheme = localStorage.getItem('mausam-theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  btn.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
-
-  btn.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('mausam-theme', next);
-    btn.innerHTML = next === 'dark' ? '☀️' : '🌙';
-  });
-
-  document.body.appendChild(btn);
-});
 /* ─── Crop Disease Detection — crop.health API (Kindwise) ────────── */
 
-// ── CONFIG: paste your crop.health API key here ──────────────────────
 const CROP_HEALTH_API_KEY = 'XqH5o0GDUoo7FAdb1BTb0ZWh1wt2wfIqaFxXc551mGkrEeUCPE';
-// ─────────────────────────────────────────────────────────────────────
 
-// Max image dimension before compressing (keeps base64 payload small)
 const MAX_IMG_PX = 1200;
 
-// ── Demo disease pool — shown whenever the API is unavailable ─────────
 const DEMO_DISEASES = [
   {
     isHealthy: false,
@@ -134,13 +107,6 @@ const DEMO_DISEASES = [
   },
 ];
 
-// ── On page load: validate key and update status bar ─────────────────
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('city-input').value = 'Patiala';
-  fetchDemoWeather('Patiala');
-  initApiStatus();
-});
-
 function initApiStatus() {
   const dot  = document.getElementById('api-status-dot');
   const text = document.getElementById('api-status-text');
@@ -153,7 +119,6 @@ function initApiStatus() {
   text.textContent = '✅ crop.health API ready — upload a leaf photo below';
 }
 
-// ── Image handling ────────────────────────────────────────────────────
 function handleImageSelect(event) {
   const file = event.target.files[0];
   if (file) showPreview(file);
@@ -179,7 +144,6 @@ function showPreview(file) {
   showResultState('idle');
 }
 
-// ── UI state machine ──────────────────────────────────────────────────
 function showResultState(state) {
   ['idle', 'loading', 'output', 'error'].forEach(s => {
     const el = document.getElementById('result-' + s);
@@ -187,7 +151,6 @@ function showResultState(state) {
   });
 }
 
-// ── Main predict function ─────────────────────────────────────────────
 async function predictDisease() {
   const file = window._cropFile || document.getElementById('cropImage').files[0];
 
@@ -195,9 +158,11 @@ async function predictDisease() {
     alert('Please select a crop image first.');
     return;
   }
-  if (!CROP_HEALTH_API_KEY || CROP_HEALTH_API_KEY === 'XqH5o0GDUoo7FAdb1BTb0ZWh1wt2wfIqaFxXc551mGkrEeUCPE') {
+
+  // Only fall back to demo if key is genuinely missing
+  if (!CROP_HEALTH_API_KEY || CROP_HEALTH_API_KEY === 'YOUR_API_KEY_HERE') {
     showResultState('loading');
-    await new Promise(r => setTimeout(r, 1200)); // simulate network delay
+    await new Promise(r => setTimeout(r, 1200));
     renderDemoResult('No API key — showing demo result');
     return;
   }
@@ -205,7 +170,6 @@ async function predictDisease() {
   showResultState('loading');
 
   try {
-    // Compress image → smaller base64 → faster API response
     const base64 = await compressAndEncode(file, MAX_IMG_PX);
 
     const payload = {
@@ -252,7 +216,6 @@ async function predictDisease() {
   }
 }
 
-// ── Demo fallback — picks a random entry from DEMO_DISEASES ──────────
 function renderDemoResult(statusMsg) {
   const dot  = document.getElementById('api-status-dot');
   const text = document.getElementById('api-status-text');
@@ -288,7 +251,6 @@ function renderDemoResult(statusMsg) {
   showResultState('output');
 }
 
-// ── Render live API result ────────────────────────────────────────────
 function renderDiseaseResult(data) {
   const result = data.result;
   if (!result) {
@@ -300,23 +262,19 @@ function renderDiseaseResult(data) {
   const diseases  = result.disease?.suggestions || [];
   const top       = diseases[0];
 
-  // Healthy / diseased badge
   const healthEl = document.getElementById('result-is-healthy');
   healthEl.textContent = isHealthy ? '✅  Plant looks Healthy' : '⚠️  Disease / Issue Detected';
   healthEl.className   = 'result-is-healthy ' + (isHealthy ? 'healthy-true' : 'healthy-false');
 
-  // Disease name — fall back gracefully
   const name = top?.name ?? (isHealthy ? 'No Disease Found' : 'Unknown Condition');
   document.getElementById('result-name').textContent = name;
 
-  // Confidence bar (animate in)
   const prob = top ? Math.round((top.probability || 0) * 100) : (isHealthy ? 99 : 0);
   setTimeout(() => {
     document.getElementById('result-prob-fill').style.width = prob + '%';
   }, 80);
   document.getElementById('result-prob-pct').textContent = prob + '%';
 
-  // Treatment / advice text
   let advice = 'No specific treatment data available for this condition. Please consult a local agricultural extension officer.';
   if (isHealthy) {
     advice = 'Your crop looks healthy! Continue regular care — maintain proper irrigation, balanced fertilisation, and monitor for any early stress signs.';
@@ -335,7 +293,6 @@ function renderDiseaseResult(data) {
   document.getElementById('result-advice').style.whiteSpace = 'pre-line';
   document.getElementById('result-advice').textContent = advice;
 
-  // Other possibilities (2nd & 3rd suggestions)
   const others     = diseases.slice(1, 4).filter(d => d.probability > 0.03);
   const othersWrap = document.getElementById('result-other-wrap');
   if (others.length > 0) {
@@ -350,7 +307,6 @@ function renderDiseaseResult(data) {
   showResultState('output');
 }
 
-
 function showDiseaseError(title, msg, note) {
   document.getElementById('error-title').textContent = title;
   document.getElementById('error-msg').textContent   = msg;
@@ -358,7 +314,6 @@ function showDiseaseError(title, msg, note) {
   document.getElementById('error-note').style.display = note ? '' : 'none';
   showResultState('error');
 }
-
 
 function resetDisease() {
   window._cropFile = null;
@@ -369,7 +324,6 @@ function resetDisease() {
   document.getElementById('result-prob-fill').style.width = '0%';
   showResultState('idle');
 }
-
 
 function compressAndEncode(file, maxPx) {
   return new Promise((resolve, reject) => {
@@ -386,10 +340,34 @@ function compressAndEncode(file, maxPx) {
       canvas.width  = width;
       canvas.height = height;
       canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-     
       resolve(canvas.toDataURL('image/jpeg', 0.88));
     };
     img.onerror = reject;
     img.src = url;
   });
 }
+
+/* ─── Single merged DOMContentLoaded ─────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function () {
+  // Theme toggle
+  const btn = document.createElement('button');
+  btn.className = 'theme-toggle-btn';
+  const savedTheme = localStorage.getItem('mausam-theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  btn.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('mausam-theme', next);
+    btn.innerHTML = next === 'dark' ? '☀️' : '🌙';
+  });
+  document.body.appendChild(btn);
+
+  // Auto-load weather for Patiala
+  document.getElementById('city-input').value = 'Patiala';
+  fetchWeather();
+
+  // Crop API status
+  initApiStatus();
+});
