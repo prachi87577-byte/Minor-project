@@ -7,6 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylehome.css">
     <script src="script.js" defer></script>
+  <!-- TensorFlow.js + Teachable Machine (image) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
     <nav>
@@ -30,7 +33,7 @@
     </p>
     <div class="hero-ctas">
       <button class="btn-primary" onclick="document.getElementById('city-input').focus()">Check My Weather</button>
-      <button class="btn-outline" onclick="document.getElementById('blogs').scrollIntoView({behavior:'smooth'})">Farmer Blogs</button>
+      <button class="btn-outline" onclick="document.getElementById('blogs').scrollIntoView({behavior:'smooth'})"><a href="blogs.html">Farmer Blogs</a></button>
     </div>
   </div>
 
@@ -157,7 +160,7 @@
           <div class="scan-beam"></div>
         </div>
         <div class="loading-title">Scanning leaf patterns…</div>
-        <p class="loading-sub">crop.health AI is analysing texture, colour, and lesion patterns</p>
+        <p class="loading-sub">Teachable Machine model is analysing texture, colour, and lesion patterns</p>
       </div>
 
       <!-- Output -->
@@ -193,7 +196,7 @@
   </div>
 
   <!-- Info strip -->
-  <div class="disease-info-strip">
+  <!-- <div class="disease-info-strip">
     <div class="dis-info-item">
       <div class="dis-info-icon">🤖</div>
       <div><div class="dis-info-title">crop.health API</div><div class="dis-info-sub">By Kindwise — specialized for food crops</div></div>
@@ -210,7 +213,7 @@
       <div class="dis-info-icon">🎁</div>
       <div><div class="dis-info-title">100 Free Credits</div><div class="dis-info-sub">Sign up free at admin.kindwise.com</div></div>
     </div>
-  </div>
+  </div> -->
 </section>
 
 <section class="schemes-section" id="schemes">
